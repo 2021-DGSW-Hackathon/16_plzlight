@@ -14,7 +14,7 @@ bus = 0
 device = 0
 inputValue = 0
 oncount = 0
-offcount = 0    # 이건 뭐고..
+offcount = 0
 oncount2 = 0
 offcount2 = 0
 humidity = 0
@@ -25,8 +25,6 @@ mylcd = I2C_LCD_driver.lcd()
 dhtDevice = Adafruit_DHT.DHT11
 DHT_PIN = 4
 servo_pin = 19
-pin_IA = 19
-pin_IB = 26
 led_pin = 18
 
 spi = spidev.SpiDev()
@@ -37,14 +35,8 @@ checksun = False
 check = False
 playercheck = False
 
-GPIO.setup(pin_IA,GPIO.OUT)
-GPIO.setup(pin_IB,GPIO.OUT)
-
 GPIO.setup(led_pin,GPIO.OUT)
 GPIO.setup(servo_pin,GPIO.OUT)
-
-pwm = GPIO.PWM(pin_IB,1000)
-pwm.start(0)
 
 pwm2 = GPIO.PWM(servo_pin,50)
 pwm2.start(0)
@@ -64,8 +56,6 @@ def t1():
             checksun = True
         else:
             checksun = False
-        #print(inputValue)
-        #print()
         time.sleep(2)
 
 def t2():
@@ -86,7 +76,6 @@ def t3():
     global checksun
     while True:
         if playercheck == False:
-            #print(playercheck)
             time.sleep(1)
             if checksun == True:
                 pwm2.ChangeDutyCycle(7.5) # 0.6ms 0도
